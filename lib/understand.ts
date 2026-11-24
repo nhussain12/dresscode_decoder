@@ -98,3 +98,4 @@ if the input isn't about an event or clothing at all, set understanding to a
 friendly note asking for an event dress code, isVague to true, and leave both
 question lists empty.
 `.trim();
+

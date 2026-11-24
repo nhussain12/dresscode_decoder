@@ -57,7 +57,8 @@ Both calls return **structured JSON** instead of a paragraph, so the app always 
   }[]                          // always 3
 }
 ```
-**play it safe / on theme / dress to impress.** Your comfort settings are hard rules for all 3, so "dress to impress" means bolder color or texture, **never less coverage.** Inspo pics steer the style but never get judged, and it doesn't assume gender or depict anyone. 
+
+**play it safe / on theme / dress to impress.** Comfort settings are hard rules for all 3, so "dress to impress" means bolder color or texture, **never less coverage.** Inspo pics steer the style but never get judged, and it doesn't assume gender or depict anyone. 
 
 ## handling vague input
 

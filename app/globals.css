@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------- design tokens: colors, fonts, shadows ---------- */
+@theme {
+  --color-cream: #f9f7f2;
+  --color-warm: #f1ede5; /* warm cream, used for paper cards */
+  --color-ink: #1e2a44; /* navy ink, used for text and outlines */
+  --color-burgundy: #66052c;
+  --color-pink: #e9b8c6;
+  --color-olive: #cecb5f; /* chartreuse olive */
+  --color-indigo: #4b4e7a;
+  --color-powder: #c8dce9; /* powder blue, third look card */
+
+  --font-display: var(--font-caprasimo), serif; /* big burgundy titles */
+  --font-heavy: var(--font-inter-tight), sans-serif; /* chunky section headings */
+  --font-sans: var(--font-dm-sans), sans-serif; /* body text */
+  --font-mono: var(--font-dm-mono), monospace; /* chips, labels */
+  --font-serif: var(--font-lora), serif; /* italic notes */
+
+  --shadow-hard: 4px 4px 0 0 var(--color-ink); /* offset "sticker" shadow */
+  --shadow-paper: 6px 6px 0 0 rgb(30 42 68 / 0.16); /* soft paper shadow */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Big burgundy title with the pink offset shadow from the mockups */
+.title-shadow {
+  text-shadow: 3px 3px 0 var(--color-pink);
+}
+
+/* ---------- tilts (static, turned off for reduced motion) ---------- */
+.tilt-l {
+  transform: rotate(-1.2deg);
+}
+.tilt-r {
+  transform: rotate(1.2deg);
+}
+.tilt-l-sm {
+  transform: rotate(-0.6deg);
+}
+.tilt-r-sm {
+  transform: rotate(0.6deg);
+}
+
+/* ---------- loading screen animations ---------- */
+
+/* Progress blocks on "decoding.exe": each block pops in one after another, then the row clears and loops. */
+@keyframes block-fill {
+  0%,
+  8% {
+    opacity: 0;
+  }
+  14%,
+  82% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0;
   }
 }
+.anim-block {
+  opacity: 0;
+  animation: block-fill 3.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.18s);
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Color swatches on "styling your looks": fill in one by one, then loop. */
+@keyframes swatch-fill {
+  0%,
+  6% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  12%,
+  84% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  92%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+.anim-swatch {
+  opacity: 0;
+  animation: swatch-fill 4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.22s);
+}
+
+/* The three fanned folder cards gently rock while styling. */
+@keyframes fan-rock {
+  0%,
+  100% {
+    transform: rotate(var(--r)) translateY(0);
+  }
+  50% {
+    transform: rotate(calc(var(--r) + 2deg)) translateY(-4px);
+  }
+}
+.anim-fan {
+  transform: rotate(var(--r));
+  animation: fan-rock 2.6s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+
+/* Blinking arrow on the current loading step. */
+@keyframes blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+.anim-blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+/* ---------- reduced motion: no animations, no tilts ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .anim-block,
+  .anim-swatch {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .anim-fan {
+    animation: none;
+    transform: none;
+  }
+  .anim-blink {
+    animation: none;
+  }
+  .tilt-l,
+  .tilt-r,
+  .tilt-l-sm,
+  .tilt-r-sm {
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
